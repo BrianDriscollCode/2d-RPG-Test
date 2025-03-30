@@ -29,7 +29,10 @@ public class TriggerBattle : MonoBehaviour
         GameStateManager gameStateManager = referenceManager.GameStateManager;
         gameStateManager.SetGameState(EGameState.BATTLE);
         battleContext.PlaceFighters();
+        battleContext.PlaceCamera();
+        battleContext.InitiateBattleEngine();
 
+        // function here
         Debug.Log("TriggerBattle::InitializeBattle - Triggered");
     }
 }

@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     public PlayerState battleState = new BattleState();
 
     // Attributes
-    public float speed = 18f;
+    public float speed = 27f;
     public float verticalInput = 0f;
     public float horizontalInput = 0f;
     public DirectionState currentDirection;
@@ -41,6 +41,22 @@ public class Player : MonoBehaviour
     void Update()
     {
         playerState.Update(this, Time.deltaTime);
+        //Debug.Log(referenceManager.pixelPerfectCamera);
+
+        /*if (isMoving)
+        {
+            if (referenceManager.pixelPerfectCamera.pixelSnapping)
+            {
+                referenceManager.pixelPerfectCamera.pixelSnapping = false;
+            }
+        }
+        else
+        {
+            if (!referenceManager.pixelPerfectCamera.pixelSnapping)
+            {
+                referenceManager.pixelPerfectCamera.pixelSnapping = true;
+            }
+        }*/
     }
 
     void FixedUpdate()

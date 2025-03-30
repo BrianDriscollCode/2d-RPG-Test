@@ -6,8 +6,9 @@ TagManager:
   tags:
   - Enemy
   - GameStateManager
-  - BattleManager
   - ReferenceManager
+  - PlayerVirtualCamera
+  - BattleEngine
   layers:
   - Default
   - TransparentFX

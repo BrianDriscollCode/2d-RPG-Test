@@ -1,6 +1,9 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
+
 
 public class ReferenceManager : MonoBehaviour
 {
@@ -8,7 +11,10 @@ public class ReferenceManager : MonoBehaviour
 
     public Player Player { get; private set; }
     public GameStateManager GameStateManager { get; private set; }
-    public BattleManager BattleManager { get; private set; }
+    public BattleEngine BattleEngine { get; private set; }
+
+    public CinemachineVirtualCamera cinemachineVirtualCamera { get; private set; }
+    public PixelPerfectCamera pixelPerfectCamera { get; private set; }
 
     private void Awake()
     {
@@ -23,7 +29,14 @@ public class ReferenceManager : MonoBehaviour
 
         FindPlayer();
         FindGameStateManager();
-        FindBattleManager();
+        FindBattleEngine();
+        FindVirtualCamera();
+        FindPixelPerfectCamera();
+    }
+
+    private void Update()
+    {
+        //Debug.Log(pixelPerfectCamera);
     }
 
     private void FindPlayer()
@@ -39,10 +52,6 @@ public class ReferenceManager : MonoBehaviour
             if (Player == null)
             {
                 Debug.LogError("ReferenceManager::FindPlayer::Error - 'Player component not found on GameObject'");
-            }
-            else
-            {
-                Debug.Log("ReferenceManager::FindPlayer::Success - Found player: " + Player.name);
             }
         }
     }
@@ -61,33 +70,61 @@ public class ReferenceManager : MonoBehaviour
             {
                 Debug.LogError("ReferenceManager::FindGameStateManager::Error - 'GameStateManager component not found on GameObject'");
             }
-            else
-            {
-                Debug.Log("ReferenceManager::FindGameStateManager::Success - Found GameStateManager: " + GameStateManager.name);
-            }
         }
     }
 
-    private void FindBattleManager()
+    private void FindBattleEngine()
     {
-        GameObject battleManagerObject = GameObject.FindWithTag("BattleManager");
-        if (battleManagerObject == null)
+        GameObject battleEngineObject = GameObject.FindWithTag("BattleEngine");
+        if (battleEngineObject == null)
         {
             Debug.LogWarning("ReferenceManager::FindBattleManager::Error - 'BattleManager object not found in scene'");
         }
         else
         {
-            BattleManager = battleManagerObject.GetComponent<BattleManager>();
-            if (BattleManager == null)
+            BattleEngine = battleEngineObject.GetComponent<BattleEngine>();
+          
+        }
+    }
+
+    private void FindVirtualCamera()
+    {
+        GameObject cameraObject = GameObject.FindWithTag("PlayerVirtualCamera");
+
+        if (cameraObject != null)
+        {
+            cinemachineVirtualCamera = cameraObject.GetComponent<CinemachineVirtualCamera>();
+            Debug.Log("ReferenceManager:: FindVirtualCamera-Error -  Found Camera");
+        }
+        else
+        {
+            Debug.LogError("ReferenceManager:: FindVirtualCamera-Error - No Cinemachine Camera found");
+        }
+    }
+
+    private void FindPixelPerfectCamera()
+    {
+        GameObject cameraObject = GameObject.FindWithTag("MainCamera");
+
+        if (cameraObject != null)
+        {
+            pixelPerfectCamera = cameraObject.GetComponent<PixelPerfectCamera>();
+            if (pixelPerfectCamera)
             {
-                Debug.LogError("ReferenceManager::FindBattleManager::Error - 'BattleManager component not found on GameObject'");
+                Debug.Log("ReferenceManager:: FindPixelPerfectCamera -  Found Pixel Perfect Camera" + pixelPerfectCamera);
             }
             else
             {
-                Debug.Log("ReferenceManager::FindBattleManager::Success - Found BattleManager: " + BattleManager.name);
+                Debug.LogError("ReferenceManager:: FindPixelPerfectCamera-Error - Pixel Perfect Camera NOT FOUND on: " + cameraObject);
             }
+            
+        }
+        else
+        {
+            Debug.LogError("ReferenceManager:: FindPixelPerfectCamera-Error - No Pixel Perfect Camera found");
         }
     }
 }
+
 
 
