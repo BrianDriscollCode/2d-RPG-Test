@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 274d842263450f44a8a185e21b1e6c20, type: 3}
-  m_Name: Slice
+  m_Name: Slash
   m_EditorClassIdentifier: 
-  moveName: Slice
+  moveName: Slash
   damage: 10
   manaCost: 0
   moveType: 0
-  clip: {fileID: 0}
+  clip:
+  - {fileID: 7400000, guid: cf32c77d4280f854aa35ecf4c2980a9f, type: 2}
+  - {fileID: 7400000, guid: d2c5825a1f9925e4c94482da2e18ad0e, type: 2}

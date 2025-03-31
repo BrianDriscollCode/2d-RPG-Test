@@ -14,7 +14,15 @@ public class BattleEngine : MonoBehaviour
     DebugBattleUI debugBattleUIComponent;
     MonoBehaviour currentParticipant;
     GameObject battleDebug;
+    BattleUI battleUI;
+    BattleButtonsPanel battleButtonPanel;
     bool connected;
+
+    // References
+    [SerializeField] GameObject battleUIRef;
+    [SerializeField] GameObject selectionArrow;
+    private GameObject currentArrow;
+    
 
     private void Update()
     {
@@ -31,6 +39,7 @@ public class BattleEngine : MonoBehaviour
 
         CreateParticipantList(players, enemies);
         SetupDebugBattleUI();
+        SetupBattleUI();
     }
 
     //*************FunctionName: CreateParticipantList
@@ -73,29 +82,64 @@ public class BattleEngine : MonoBehaviour
     private void SetupDebugBattleUI()
     {
         battleDebug = Instantiate(debugBattleUI);
-        currentParticipant = GetCurrentTurnParticipants();
+        currentParticipant = GetCurrentTurnParticipant();
         debugBattleUIComponent = battleDebug.GetComponent<DebugBattleUI>();
         debugBattleUIComponent.SetupDebugBattleUI(currentParticipant, connected);
+        
+
+        // Need better solution that arbitray delay, but good enough for now
+        StartCoroutine(DelayedPointSelectionArrow());
+    }
+
+    private void SetupBattleUI()
+    {
+        battleUI = Instantiate(battleUIRef).GetComponent<BattleUI>();
+        battleButtonPanel = battleUI.GetBattleButtonsPanel;
+        battleButtonPanel.SetupBattleButtons(this);
+    }
+
+    private IEnumerator DelayedPointSelectionArrow()
+    {
+        yield return new WaitForSeconds(0.5f);
+        PointSelectionArrow();
     }
 
     // Move to the next turn
     public void NextTurn()
     {
+        
         turnPointer = (turnPointer + 1) % participants.Count;
         UpdateDebugBattleUI();
     }
 
     private void UpdateDebugBattleUI()
     {
-        currentParticipant = GetCurrentTurnParticipants();
+        currentParticipant = GetCurrentTurnParticipant();
         debugBattleUIComponent.SetConnectedValueText(connected);
         debugBattleUIComponent.SetCurrentTurnValueText(currentParticipant);
+        PointSelectionArrow();
     }
 
     // Function to get the current participant's turn
-    public MonoBehaviour GetCurrentTurnParticipants()
+    public MonoBehaviour GetCurrentTurnParticipant()
     {
         if (participants.Count == 0) return null;
         return participants[turnPointer];
+    }
+
+    private void PointSelectionArrow()
+    {
+        if (currentArrow != null)
+        {
+            Destroy(currentArrow);
+        }
+        
+        currentArrow = Instantiate(selectionArrow);
+        currentArrow.transform.position = currentParticipant.transform.position + new Vector3(0 , 0.5f, 0);
+    }
+
+    public void test()
+    {
+        Debug.Log("TEST");
     }
 }

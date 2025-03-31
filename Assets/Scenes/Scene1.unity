@@ -4927,6 +4927,8 @@ MonoBehaviour:
   characterName: 
   maxHealth: 0
   currentHealth: 0
+  allMoves:
+  - {fileID: 11400000, guid: 1f4cf1b7eed71fe4c8e681ff7081ae18, type: 2}
 --- !u!61 &408627592
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6968,6 +6970,8 @@ MonoBehaviour:
   characterName: 
   maxHealth: 0
   currentHealth: 0
+  allMoves:
+  - {fileID: 11400000, guid: 1f4cf1b7eed71fe4c8e681ff7081ae18, type: 2}
 --- !u!1 &803600399
 GameObject:
   m_ObjectHideFlags: 0
@@ -28806,6 +28810,8 @@ MonoBehaviour:
   characterName: 
   maxHealth: 0
   currentHealth: 0
+  allMoves:
+  - {fileID: 11400000, guid: 1f4cf1b7eed71fe4c8e681ff7081ae18, type: 2}
 --- !u!61 &1302861042
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -29551,6 +29557,8 @@ MonoBehaviour:
   characterName: 
   maxHealth: 0
   currentHealth: 0
+  allMoves:
+  - {fileID: 11400000, guid: 1f4cf1b7eed71fe4c8e681ff7081ae18, type: 2}
 --- !u!1001 &2001607226
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29953,6 +29961,14 @@ PrefabInstance:
       propertyPath: speed
       value: 27
       objectReference: {fileID: 0}
+    - target: {fileID: 3566054286691770310, guid: 7fdcea852608c22488cfccb424ac9171, type: 3}
+      propertyPath: allMoves.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3566054286691770310, guid: 7fdcea852608c22488cfccb424ac9171, type: 3}
+      propertyPath: allMoves.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1f4cf1b7eed71fe4c8e681ff7081ae18, type: 2}
     - target: {fileID: 7409445743655683333, guid: 7fdcea852608c22488cfccb424ac9171, type: 3}
       propertyPath: m_Name
       value: Guy

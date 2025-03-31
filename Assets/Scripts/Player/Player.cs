@@ -21,6 +21,8 @@ public class Player : Character
     public float horizontalInput = 0f;
     public DirectionState currentDirection;
 
+    [SerializeField] AttackAbility[] allMoves;
+
     // Components
     private Rigidbody rb;
 
@@ -29,6 +31,7 @@ public class Player : Character
 
     void Start()
     {
+
         InitializeCharacter("Player", 100, 100);
 
         rb = GetComponent<Rigidbody>();
@@ -99,4 +102,14 @@ public class Player : Character
         return playerState;
     }
 
+    public void SetMove()
+    {
+        SetCurrentMove(allMoves[0]);
+    }
+
+    public void RunMove()
+    {
+        Debug.Log("Running move - " + allMoves[0]);
+    }
 }
+

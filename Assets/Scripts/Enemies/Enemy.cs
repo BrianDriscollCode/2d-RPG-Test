@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy : Character
 {
+    
+    [SerializeField] AttackAbility[] allMoves;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,4 +17,14 @@ public class Enemy : Character
     {
         
     }
+
+    /*public void SetMove()
+    {
+        SetCurrentMove(allMoves[0]);
+    }
+
+    public void RunMove()
+    {
+        Debug.Log("Running move - " + allMoves[0]);
+    }*/
 }

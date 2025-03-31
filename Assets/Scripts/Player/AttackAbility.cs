@@ -4,22 +4,20 @@ using UnityEngine;
 using UnityEngine.TextCore.Text;
 
 
-[CreateAssetMenu(fileName = "NewMove", menuName = "Move System/Move")]
-public class PlayerMoveSet : ScriptableObject
+[CreateAssetMenu(fileName = "NewMove", menuName = "Attack System/Attacks")]
+public class AttackAbility : ScriptableObject
 {
-    public string moveName;  // Name of the move (e.g., "Fireball")
-    public int damage;       // How much damage the move does
-    public int manaCost;     // How much mana the move costs
-    
+    public string moveName;
+    public int damage;       
+    public int manaCost;     
+    public MoveType moveType;
     public enum MoveType
     {
         MEELE,
         MAGIC,
         RANGED
     }
-
-    public MoveType moveType;
-    public AnimationClip clip;
+    public AnimationClip[] clip;
 
     public void Execute(Character user, Character target)
     {
