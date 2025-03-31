@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class BattleEngine : MonoBehaviour
 {
@@ -25,8 +26,20 @@ public class BattleEngine : MonoBehaviour
 
     public void SetupBattleEngine(Player[] players, Enemy[] enemies, GameObject debugBattleUIRef)
     {
+        connected = true;
         debugBattleUI = debugBattleUIRef;
 
+        CreateParticipantList(players, enemies);
+        SetupDebugBattleUI();
+    }
+
+    //*************FunctionName: CreateParticipantList
+    //
+    // Explanation: Get all enemeis and players in current battle context
+    //              and add them to an array and sort according to a 
+    //              randomly assigned RNG number
+    private void CreateParticipantList(Player[] players, Enemy[] enemies)
+    {
         participants.Clear();
 
         // Create a list to store participants with their initiative values
@@ -55,14 +68,13 @@ public class BattleEngine : MonoBehaviour
             participants.Add(entry.participant);
             Debug.Log($"Turn Order: {entry.participant.name}, Initiative: {entry.initiative}");
         }
+    }
 
-        //Debug.Log("Battle engine initialized!");
-
-        // setup Debug Interface
+    private void SetupDebugBattleUI()
+    {
         battleDebug = Instantiate(debugBattleUI);
-        currentParticipant = GetCurrentTurnParticipant();
+        currentParticipant = GetCurrentTurnParticipants();
         debugBattleUIComponent = battleDebug.GetComponent<DebugBattleUI>();
-        connected = true;
         debugBattleUIComponent.SetupDebugBattleUI(currentParticipant, connected);
     }
 
@@ -70,15 +82,18 @@ public class BattleEngine : MonoBehaviour
     public void NextTurn()
     {
         turnPointer = (turnPointer + 1) % participants.Count;
-        //Debug.Log($"Next turn: {participants[turnPointer].name}");
-        currentParticipant = GetCurrentTurnParticipant();
+        UpdateDebugBattleUI();
+    }
+
+    private void UpdateDebugBattleUI()
+    {
+        currentParticipant = GetCurrentTurnParticipants();
         debugBattleUIComponent.SetConnectedValueText(connected);
         debugBattleUIComponent.SetCurrentTurnValueText(currentParticipant);
-        Debug.Log("DEBUG!!! " + currentParticipant);
     }
 
     // Function to get the current participant's turn
-    public MonoBehaviour GetCurrentTurnParticipant()
+    public MonoBehaviour GetCurrentTurnParticipants()
     {
         if (participants.Count == 0) return null;
         return participants[turnPointer];

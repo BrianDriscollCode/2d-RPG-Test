@@ -123,11 +123,16 @@ public class BattleContext : MonoBehaviour
     public void PlaceCamera()
     {
         referenceManager.cinemachineVirtualCamera.Follow = middle.transform;
-        referenceManager.cinemachineVirtualCamera.m_Lens.OrthographicSize = 2.5f;
+        referenceManager.cinemachineVirtualCamera.m_Lens.OrthographicSize = 4f;
     }
 
     public void InitiateBattleEngine()
     {
+        GameStateManager gameStateManager = referenceManager.GameStateManager;
+        gameStateManager.SetGameState(EGameState.BATTLE);
+        PlaceFighters();
+        PlaceCamera();
+
         Player[] players = { player };
         Enemy[] enemies = { enemy1, enemy2, enemy3, enemy4 };
 
@@ -146,13 +151,9 @@ public class BattleContext : MonoBehaviour
         // Convert the validEnemies list back to an array
         Enemy[] nonNullEnemies = validEnemies.ToArray();
 
-
         // Create and Initiate the Battle Engine Object
         GameObject battleEngine = Instantiate(BattleEnginePrefab);
         battleEngine.GetComponent<BattleEngine>().SetupBattleEngine(players, nonNullEnemies, debugBattleUI);
-
-
-
     }
 
     

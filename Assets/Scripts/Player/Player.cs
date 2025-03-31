@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 
-public class Player : MonoBehaviour
+public class Player : Character
 {
     // The current player state
     public PlayerState playerState;
@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        InitializeCharacter("Player", 100, 100);
+
         rb = GetComponent<Rigidbody>();
         playerState = explorationState;
         playerState.EnterState(this); // Enter the ExplorationState initially

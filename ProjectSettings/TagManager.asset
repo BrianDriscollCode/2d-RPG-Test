@@ -9,6 +9,7 @@ TagManager:
   - ReferenceManager
   - PlayerVirtualCamera
   - BattleEngine
+  - BattleDebug
   layers:
   - Default
   - TransparentFX

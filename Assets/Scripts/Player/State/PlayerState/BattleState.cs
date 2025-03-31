@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class BattleState : PlayerState
 {
+    IMoveSet selectedMove;
     public void EnterState(Player player)
     {
 
     }
-
 
     public void Update(Player player, float deltaTime)
     {
