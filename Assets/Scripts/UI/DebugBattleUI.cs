@@ -9,26 +9,29 @@ public class DebugBattleUI : MonoBehaviour
 
     public MonoBehaviour currentTurn;
     bool connected;
+    BattleEngineState state;
 
     [SerializeField] TextMeshProUGUI currentTurnValue;
     [SerializeField] TextMeshProUGUI connectedValue;
+    [SerializeField] TextMeshProUGUI stateValue;
 
     private void Start()
     {
         referenceManager = StandardFunctions.FindReferenceManager();
     }
 
-    public void SetupDebugBattleUI(MonoBehaviour currentTurnObject, bool connectedStatus)
+    public void SetupDebugBattleUI(MonoBehaviour currentTurnObject, bool connectedStatus, BattleEngineState stateStatus)
     {
         currentTurn = currentTurnObject;
         connected = connectedStatus;
+        state = stateStatus;
     }
 
     private void FixedUpdate()
     {
         currentTurnValue.text = currentTurn.name;
         connectedValue.text = connected.ToString();
-
+        stateValue.text = state.ToString();
     }
 
     public void SetCurrentTurnValueText(MonoBehaviour currentTurnMono)
@@ -39,6 +42,11 @@ public class DebugBattleUI : MonoBehaviour
 
     public void SetConnectedValueText(bool connectedValueMono)
     {
-        connectedValue.text = connectedValueMono.ToString();
+        connected = connectedValueMono;
+    }
+
+    public void SetStateValueText(BattleEngineState stateStatus)
+    {
+        state = stateStatus;
     }
 }

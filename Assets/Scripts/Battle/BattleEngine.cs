@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static UnityEditor.Experimental.GraphView.GraphView;
+using UnityEngine.UI;
+
 
 public class BattleEngine : MonoBehaviour
 {
@@ -10,26 +10,46 @@ public class BattleEngine : MonoBehaviour
     private int turnPointer = 0;
     GameObject debugBattleUI;
 
+    // Resources 
+    [SerializeField] public GameObject pointedHand;
+
+    // States
+    BattleEngineState BES_Setup = new BES_Setup();
+    BattleEngineState BES_SelectMove = new BES_SelectMove();
+    BattleEngineState BES_SelectTarget = new BES_SelectTarget();
+    BattleEngineState BES_Move = new BES_Move();
+    BattleEngineState BES_Next = new BES_Next();
+
+    BattleEngineState currentBattleState;
+
     // Initiated during setup
     DebugBattleUI debugBattleUIComponent;
     MonoBehaviour currentParticipant;
     GameObject battleDebug;
     BattleUI battleUI;
-    BattleButtonsPanel battleButtonPanel;
+    public BattleButtonsPanel battleButtonPanel;
     bool connected;
 
     // References
     [SerializeField] GameObject battleUIRef;
     [SerializeField] GameObject selectionArrow;
     private GameObject currentArrow;
-    
+
+
+    private void Start()
+    {
+        Debug.Log(currentBattleState + "current battle state");
+    }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+       /* if (Input.GetKeyDown(KeyCode.Q) && currentBattleState == BES_SelectMove)
         {
             NextTurn();
-        }
+        }*/
+
+        currentBattleState.Update(this, Time.deltaTime);
+        currentBattleState.FixedUpdate(this, Time.deltaTime);
     }
 
     public void SetupBattleEngine(Player[] players, Enemy[] enemies, GameObject debugBattleUIRef)
@@ -40,6 +60,9 @@ public class BattleEngine : MonoBehaviour
         CreateParticipantList(players, enemies);
         SetupDebugBattleUI();
         SetupBattleUI();
+
+        currentBattleState = BES_SelectMove;
+        UpdateDebugBattleUI();
     }
 
     //*************FunctionName: CreateParticipantList
@@ -81,14 +104,15 @@ public class BattleEngine : MonoBehaviour
 
     private void SetupDebugBattleUI()
     {
+        currentBattleState = BES_Setup;
         battleDebug = Instantiate(debugBattleUI);
         currentParticipant = GetCurrentTurnParticipant();
         debugBattleUIComponent = battleDebug.GetComponent<DebugBattleUI>();
-        debugBattleUIComponent.SetupDebugBattleUI(currentParticipant, connected);
-        
+        debugBattleUIComponent.SetupDebugBattleUI(currentParticipant, connected, currentBattleState);
+        Debug.Log(currentBattleState + "CURRENT BATTLE STATE");
 
         // Need better solution that arbitray delay, but good enough for now
-        StartCoroutine(DelayedPointSelectionArrow());
+        StartCoroutine(DelayedPointSelectionArrow(currentParticipant));
     }
 
     private void SetupBattleUI()
@@ -98,16 +122,15 @@ public class BattleEngine : MonoBehaviour
         battleButtonPanel.SetupBattleButtons(this);
     }
 
-    private IEnumerator DelayedPointSelectionArrow()
+    private IEnumerator DelayedPointSelectionArrow(MonoBehaviour target)
     {
         yield return new WaitForSeconds(0.5f);
-        PointSelectionArrow();
+        PointSelectionArrow(target);
     }
 
     // Move to the next turn
     public void NextTurn()
     {
-        
         turnPointer = (turnPointer + 1) % participants.Count;
         UpdateDebugBattleUI();
     }
@@ -117,7 +140,9 @@ public class BattleEngine : MonoBehaviour
         currentParticipant = GetCurrentTurnParticipant();
         debugBattleUIComponent.SetConnectedValueText(connected);
         debugBattleUIComponent.SetCurrentTurnValueText(currentParticipant);
-        PointSelectionArrow();
+        debugBattleUIComponent.SetStateValueText(currentBattleState);
+        Debug.Log(currentBattleState + " -CURRENT BATTLE STATE");
+        //PointSelectionArrow();
     }
 
     // Function to get the current participant's turn
@@ -126,16 +151,18 @@ public class BattleEngine : MonoBehaviour
         if (participants.Count == 0) return null;
         return participants[turnPointer];
     }
-
-    private void PointSelectionArrow()
+    
+    public void PointSelectionArrow(MonoBehaviour target)
     {
+        Vector3 offset = new Vector3(0, 0.5f, 0);
+
         if (currentArrow != null)
         {
             Destroy(currentArrow);
         }
         
         currentArrow = Instantiate(selectionArrow);
-        currentArrow.transform.position = currentParticipant.transform.position + new Vector3(0 , 0.5f, 0);
+        currentArrow.transform.position = target.transform.position + offset;
     }
 
     public void test()

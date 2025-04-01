@@ -44,5 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d276a17bc529487439cf98dbcbbf9e5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointedHand: {fileID: 5619350786484996408, guid: e6795a1242a526b4ca685bd7599dcb10, type: 3}
+  battleButtonPanel: {fileID: 0}
   battleUIRef: {fileID: 7807740440045434622, guid: 5e87f6bc05145a145bb0816d2572badb, type: 3}
   selectionArrow: {fileID: 5996586462095067625, guid: a737133a658175749ab910b33ab6ad67, type: 3}
