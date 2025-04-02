@@ -4927,6 +4927,7 @@ MonoBehaviour:
   characterName: 
   maxHealth: 0
   currentHealth: 0
+  characterType: 0
   allMoves:
   - {fileID: 11400000, guid: 7bd53ec1ea7e6554f92bd44a0751cc14, type: 2}
 --- !u!61 &408627592
@@ -6970,6 +6971,7 @@ MonoBehaviour:
   characterName: 
   maxHealth: 0
   currentHealth: 0
+  characterType: 0
   allMoves:
   - {fileID: 11400000, guid: 7bd53ec1ea7e6554f92bd44a0751cc14, type: 2}
 --- !u!1 &803600399
@@ -28810,6 +28812,7 @@ MonoBehaviour:
   characterName: 
   maxHealth: 0
   currentHealth: 0
+  characterType: 0
   allMoves:
   - {fileID: 11400000, guid: 7bd53ec1ea7e6554f92bd44a0751cc14, type: 2}
 --- !u!61 &1302861042
@@ -29557,6 +29560,7 @@ MonoBehaviour:
   characterName: 
   maxHealth: 0
   currentHealth: 0
+  characterType: 0
   allMoves:
   - {fileID: 11400000, guid: 7bd53ec1ea7e6554f92bd44a0751cc14, type: 2}
 --- !u!1001 &2001607226

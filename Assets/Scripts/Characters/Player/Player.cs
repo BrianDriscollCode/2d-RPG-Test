@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -29,10 +30,18 @@ public class Player : Character
     // Managers
     private ReferenceManager referenceManager;
 
+    // Events
+    public event Action OnMoveSelected;
+
+    public void SelectMoveFromUI()
+    {
+        // This method is triggered when the player selects a move
+        OnMoveSelected?.Invoke(); // Notify listeners that a move was selected
+    }
+
     void Start()
     {
-
-        InitializeCharacter("Player", 100, 100);
+        InitializeCharacter("Player", 100, 100, E_CharacterType.PLAYER);
 
         rb = GetComponent<Rigidbody>();
         playerState = explorationState;
@@ -42,6 +51,7 @@ public class Player : Character
         EventManager.StartBattle += HandleStartBattle;
         EventManager.EndBattle += HandleEndBattle;
     }
+
 
     void Update()
     {
@@ -104,6 +114,7 @@ public class Player : Character
 
     public void SetMove()
     {
+        Debug.Log("Player move set");
         SetCurrentMove(allMoves[0]);
     }
 

@@ -9,7 +9,7 @@ public class Enemy : Character
     // Start is called before the first frame update
     void Start()
     {
-        InitializeCharacter("Enemy", 100, 100);
+        InitializeCharacter("Enemy", 100, 100, E_CharacterType.ENEMY);
     }
 
     // Update is called once per frame
@@ -18,13 +18,13 @@ public class Enemy : Character
         
     }
 
-    /*public void SetMove()
+    public void SetMove()
     {
-        SetCurrentMove(allMoves[0]);
+        //SetCurrentMove(allMoves[0]);
     }
 
     public void RunMove()
     {
-        Debug.Log("Running move - " + allMoves[0]);
-    }*/
+        GetComponent<Animator>().Play("LeftSlash");
+    }
 }

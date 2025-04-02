@@ -153,7 +153,11 @@ public class BattleContext : MonoBehaviour
 
         // Create and Initiate the Battle Engine Object
         GameObject battleEngine = Instantiate(BattleEnginePrefab);
-        battleEngine.GetComponent<BattleEngine>().SetupBattleEngine(players, nonNullEnemies, debugBattleUI);
+        battleEngine.GetComponent<BattleEngine>().SetupBattleEngine(
+            players, nonNullEnemies, debugBattleUI,
+            playerPosition1, playerPosition2, playerPosition3, playerPosition4,
+            enemyPosition1, enemyPosition2, enemyPosition3, enemyPosition4
+        );
     }
 
     

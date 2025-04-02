@@ -8,6 +8,8 @@ public class CharacterAnimSimple : MonoBehaviour
     DirectionState currentDirection;
     [SerializeField] Player player;
 
+    bool playingAttackAnimation = false;
+
     void Start()
     {
         currentDirection = player.GetDirectionState();
@@ -24,9 +26,9 @@ public class CharacterAnimSimple : MonoBehaviour
             currentDirection = player.GetDirectionState();
         }
         // Battle State
-        else
+        else if (!playingAttackAnimation)
         {
-            PlayIdleAnimation();
+            PlayIdleAnimation(); 
         }
     }
 
@@ -78,5 +80,27 @@ public class CharacterAnimSimple : MonoBehaviour
                 animator.Play("IdleDown"); // Default idle
                 break;
         }
+    }
+
+    public void EnableAttackAnimation()
+    {
+        playingAttackAnimation = true;
+    }
+
+    public void DisableAttackAnimation()
+    {
+        playingAttackAnimation = false;
+    }
+
+
+    public void PlayAttackAnimation(string attackAnimationName)
+    {
+        animator.Play(attackAnimationName);
+    }
+
+    public void OnAttackAnimationComplete()
+    {
+        BattleEventManager.OnPlayerMoveCompleted();
+        Debug.Log("Attack animation completed!");
     }
 }

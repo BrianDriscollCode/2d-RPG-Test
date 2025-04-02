@@ -133,5 +133,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e39ba9786aa0ef4dac640c2c67fbe01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterName: 
+  maxHealth: 0
+  currentHealth: 0
+  characterType: 0
+  isMoving: 0
+  speed: 27
   verticalInput: 0
   horizontalInput: 0
+  currentDirection: 0
+  allMoves:
+  - {fileID: 0}
+  - {fileID: 0}

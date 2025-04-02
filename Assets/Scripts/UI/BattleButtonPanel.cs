@@ -42,17 +42,43 @@ public class BattleButtonsPanel : MonoBehaviour
 
     private void Update()
     {
-        
+        BattleEngineState currentBattleEngineState = battleEngine.GetBattleEngineState();
+
+        if (currentBattleEngineState == battleEngine.BES_SelectMove && Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            selectedButton.onClick.Invoke();
+        }
     }
 
     public void SetupBattleButtons(BattleEngine battleEngine)
     {
         this.battleEngine = battleEngine;
         attackButton.onClick.AddListener(OnAttackButtonClick);
+        defendButton.onClick.AddListener(OnDefendButtonClick);
+        magicButton.onClick.AddListener(OnMagicButtonClick);
+        inventoryButton.onClick.AddListener(OnInventoryButtonClick);
+        
     }
 
     private void OnAttackButtonClick()
     {
-        battleEngine.test();
+        battleEngine.test("ATTACK");
+        BattleEventManager.OnPlayerMoveSelected();
+
+    }
+
+    private void OnDefendButtonClick()
+    {
+        battleEngine.test("DEFEND");
+    }
+
+    private void OnMagicButtonClick()
+    {
+        battleEngine.test("MAGIC");
+    }
+
+    private void OnInventoryButtonClick()
+    {
+        battleEngine.test("INVENTORY");
     }
 }
