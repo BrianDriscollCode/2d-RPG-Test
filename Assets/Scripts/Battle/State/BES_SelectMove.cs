@@ -22,7 +22,7 @@ public class BES_SelectMove : BattleEngineState
 
     public void EnterState(BattleEngine battleEngine)
     {
-        MonoBehaviour currentTarget = battleEngine.GetCurrentTurnParticipant();
+        Character currentTarget = battleEngine.GetCurrentTurnParticipant();
         characterType = GetCharacterType(currentTarget);
 
         battleEngine.StartCoroutine(SelectMove(battleEngine, characterType));
@@ -41,7 +41,7 @@ public class BES_SelectMove : BattleEngineState
 
     private void HandleUINavigation(BattleEngine battleEngine)
     {
-        BattleButtonsPanel battleButtonsPanel = battleEngine.battleButtonPanel;
+        BattleButtonsPanel battleButtonsPanel = battleEngine.GetBattleButtonsPanel();
 
         // Reset initial generation if we are back to the player and the UI hasn't been initialized yet
         if (characterType == E_CharacterType.PLAYER && !UI_Initial_Generation)
@@ -87,7 +87,7 @@ public class BES_SelectMove : BattleEngineState
 
     private void MakePointingHandTransparent(BattleEngine battleEngine)
     {
-        BattleButtonsPanel battleButtonsPanel = battleEngine.battleButtonPanel;
+        BattleButtonsPanel battleButtonsPanel = battleEngine.GetBattleButtonsPanel();
 
         battleButtonsPanel.hand1.GetComponent<Image>().color = battleButtonsPanel.transparentWhite;
         battleButtonsPanel.hand2.GetComponent<Image>().color = battleButtonsPanel.transparentWhite;
@@ -126,9 +126,7 @@ public class BES_SelectMove : BattleEngineState
         }
     }
 
-
-
-    private E_CharacterType GetCharacterType(MonoBehaviour localCharacter)
+    private E_CharacterType GetCharacterType(Character localCharacter)
     {
         if (localCharacter.TryGetComponent<Player>(out Player player))
         {
@@ -151,7 +149,7 @@ public class BES_SelectMove : BattleEngineState
         {
             Debug.Log("BES_SelectMove::SelectMove- FOUND PLAYER");
             // do something
-            Player player = battleEngine.currentParticipant.GetComponent<Player>();
+            Player player = battleEngine.GetCurrentParticipant().GetComponent<Player>();
 
             bool moveSelected = false;
             void OnMoveSelected() => moveSelected = true;
@@ -169,7 +167,7 @@ public class BES_SelectMove : BattleEngineState
         else if (type == E_CharacterType.ENEMY)
         {
             Debug.Log("BES_SelectMove::SelectMove- FOUND ENEMY");
-            Enemy enemy = battleEngine.currentParticipant.GetComponent<Enemy>();
+            Enemy enemy = battleEngine.GetCurrentParticipant().GetComponent<Enemy>();
             enemy.SetMove();
             battleEngine.changeState(battleEngine.BES_SelectTarget);
             

@@ -28,6 +28,8 @@ public class BattleContext : MonoBehaviour
 
 
     // Player related
+    Player[] players;
+
     [SerializeField] GameObject playerPosition1;
     [SerializeField] GameObject playerPosition2;
     [SerializeField] GameObject playerPosition3;
@@ -58,8 +60,11 @@ public class BattleContext : MonoBehaviour
     private void Start()
     {
         referenceManager = StandardFunctions.FindReferenceManager();
+
+        //*****NEED TO MAKE MULTIPLE
         player = referenceManager.Player;
 
+        // IF not 4 enemies, handled in Initiate Battle Engine
         Enemy[] enemies = { enemy1, enemy2, enemy3, enemy4 };
 
         enemy1PositionRenderer = enemyPosition1.GetComponent<SpriteRenderer>();
@@ -170,8 +175,4 @@ public class BattleContext : MonoBehaviour
             enemyPosition1, enemyPosition2, enemyPosition3, enemyPosition4
         );
     }
-
-    
-
-
 }

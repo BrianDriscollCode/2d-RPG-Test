@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 
 public class BES_Move : BattleEngineState
 {
-    MonoBehaviour currentParticipant;
+    Character currentParticipant;
     Character currentTarget;
     AttackAbility attackAbility;
     AnimationClip[] attackAnimation;
@@ -45,7 +45,7 @@ public class BES_Move : BattleEngineState
 
             Debug.Log("BES_Move::EnterState - " + currentParticipant.GetComponent<Character>());
         
-            attackAbility = currentParticipant.GetComponent<Character>().GetCurrentMove();
+            attackAbility = currentParticipant.GetCurrentMove();
 
             Vector3 moveToPosition = currentTarget.transform.position + offset;
             currentParticipant.transform
@@ -69,7 +69,7 @@ public class BES_Move : BattleEngineState
 
             Debug.Log("BES_Move::EnterState - " + currentParticipant.GetComponent<Character>());
 
-            attackAbility = currentParticipant.GetComponent<Character>().GetCurrentMove();
+            attackAbility = currentParticipant.GetCurrentMove();
 
             Vector3 moveToPosition = currentTarget.transform.position + offset;
             currentParticipant.transform
@@ -91,6 +91,7 @@ public class BES_Move : BattleEngineState
     }
     public void Update(BattleEngine battleEngine, float deltaTime)
     {
+        // Run Attack Animation
         if (runAnim && currentType == E_CharacterType.PLAYER)
         {
             // Contains animation event to signal completion

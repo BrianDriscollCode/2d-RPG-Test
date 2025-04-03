@@ -11,7 +11,7 @@ public class BES_SelectTarget : BattleEngineState
     Player[] players;
     GameObject selectionArrow;
     GameObject currentArrow;
-    MonoBehaviour currentParticipant;
+    Character currentParticipant;
     E_CharacterType characterType;
 
     int targetPointer = 0;
@@ -40,7 +40,7 @@ public class BES_SelectTarget : BattleEngineState
     }
     public void Update(BattleEngine battleEngine, float deltaTime) 
     {
-        HandleUIFunctionality(battleEngine);
+        HandleTargetPointer(battleEngine);
         HandleSubmit(battleEngine);
 
     }
@@ -51,7 +51,7 @@ public class BES_SelectTarget : BattleEngineState
     }
 
     // Functionality
-    private E_CharacterType GetCharacterType(MonoBehaviour localCharacter)
+    private E_CharacterType GetCharacterType(Character localCharacter)
     {
         if (localCharacter.TryGetComponent<Player>(out Player player))
         {
@@ -68,7 +68,8 @@ public class BES_SelectTarget : BattleEngineState
         }
     }
 
-    private void HandleUIFunctionality(BattleEngine battleEngine)
+    // Toggle Arrow through enemies
+    private void HandleTargetPointer(BattleEngine battleEngine)
     {
         if (Input.GetKeyDown(KeyCode.S) && targetPointer < enemies.Length - 1)
         {
