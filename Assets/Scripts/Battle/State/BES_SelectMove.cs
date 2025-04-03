@@ -171,7 +171,8 @@ public class BES_SelectMove : BattleEngineState
             Debug.Log("BES_SelectMove::SelectMove- FOUND ENEMY");
             Enemy enemy = battleEngine.currentParticipant.GetComponent<Enemy>();
             enemy.SetMove();
-            //battleEngine.changeState(battleEngine.BES_SelectTarget);
+            battleEngine.changeState(battleEngine.BES_SelectTarget);
+            
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -15,7 +16,7 @@ public class BES_SelectTarget : BattleEngineState
 
     int targetPointer = 0;
 
-    bool renderArrow = true;
+    bool renderArrow;
 
     Character currentTarget;
     
@@ -28,8 +29,14 @@ public class BES_SelectTarget : BattleEngineState
         this.currentParticipant = battleEngine.GetCurrentParticipant();
         this.characterType = GetCharacterType(currentParticipant);
 
-        ChangeTarget(battleEngine, targetPointer);
+        if (enemies == null) throw new NullReferenceException("Enemies are null in EnterState.");
+        if (players == null) throw new NullReferenceException("Players are null in EnterState.");
+        if (selectionArrow == null) throw new NullReferenceException("SelectionArrow is null in EnterState.");
+        if (currentParticipant == null) throw new NullReferenceException("CurrentParticipant is null in EnterState.");
+        
+        renderArrow = true;
 
+        ChangeTarget(battleEngine, targetPointer);
     }
     public void Update(BattleEngine battleEngine, float deltaTime) 
     {
@@ -92,6 +99,17 @@ public class BES_SelectTarget : BattleEngineState
         {
             currentTarget = enemies[targetPointer];
             battleEngine.SetCurrentTarget(currentTarget);
+        }
+        else if (characterType == E_CharacterType.ENEMY)
+        {
+            currentTarget = players[0];
+            battleEngine.SetCurrentTarget(currentTarget);
+            Debug.Log("BES_SelectTarget::ChangeTarget - currentTarget: " + currentTarget);
+            battleEngine.changeState(battleEngine.BES_Move);
+        }
+        else
+        {
+            Debug.Log("BES_SelectTarget::ChangeTarget - Incorrect character type");
         }
     }
 

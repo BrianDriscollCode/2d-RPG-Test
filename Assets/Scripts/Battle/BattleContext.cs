@@ -93,30 +93,41 @@ public class BattleContext : MonoBehaviour
         {
             //enemy1.transform.position = enemyPosition2.transform.position;
             enemy1.transform.DOMove(enemyPosition2.transform.position, duration).SetEase(Ease.OutQuad);
+            enemy1.battlePosition = enemyPosition2.transform.position;
         }
         else if (enemyAmount == 2)
         {
             enemy1.transform.DOMove(enemyPosition2.transform.position, duration).SetEase(Ease.OutQuad);
+            enemy1.battlePosition = enemyPosition2.transform.position;
             enemy2.transform.DOMove(enemyPosition3.transform.position, duration).SetEase(Ease.OutQuad);
+            enemy2.battlePosition = enemyPosition3.transform.position;
         }
         else if (enemyAmount == 3)
         {
             enemy1.transform.DOMove(enemyPosition1.transform.position, duration).SetEase(Ease.OutQuad);
+            enemy1.battlePosition = enemyPosition1.transform.position;
             enemy2.transform.DOMove(enemyPosition2.transform.position, duration).SetEase(Ease.OutQuad);
+            enemy2.battlePosition = enemyPosition2.transform.position;
             enemy3.transform.DOMove(enemyPosition3.transform.position, duration).SetEase(Ease.OutQuad);
+            enemy3.battlePosition = enemyPosition3.transform.position;
         }
         else
         {
             enemy1.transform.DOMove(enemyPosition1.transform.position, duration).SetEase(Ease.OutQuad);
+            enemy1.battlePosition = enemyPosition1.transform.position;
             enemy2.transform.DOMove(enemyPosition2.transform.position, duration).SetEase(Ease.OutQuad);
+            enemy2.battlePosition = enemyPosition2.transform.position;
             enemy3.transform.DOMove(enemyPosition3.transform.position, duration).SetEase(Ease.OutQuad);
+            enemy3.battlePosition = enemyPosition3.transform.position;
             enemy4.transform.DOMove(enemyPosition4.transform.position, duration).SetEase(Ease.OutQuad);
+            enemy4.battlePosition = enemyPosition4.transform.position;
         }
 
         if (playerAmount == 1)
         {
             //player.transform.position = playerPosition2.transform.position;
             player.transform.DOMove(playerPosition2.transform.position, duration).SetEase(Ease.OutQuad);
+            player.battlePosition = playerPosition2.transform.position;
         }
     }
 

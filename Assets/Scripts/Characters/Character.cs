@@ -10,7 +10,8 @@ public class Character : MonoBehaviour
     public int currentHealth;
     public E_CharacterType characterType;
     protected AttackAbility currentMove;
-    protected GameObject CurrentTarget; 
+    protected GameObject CurrentTarget;
+    public Vector3 battlePosition;
 
     public void InitializeCharacter(string characterName, int maxHealth, int currentHealth, E_CharacterType characterType
         )

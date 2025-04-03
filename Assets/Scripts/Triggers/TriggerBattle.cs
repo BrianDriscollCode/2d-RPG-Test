@@ -17,5 +17,7 @@ public class TriggerBattle : MonoBehaviour
     private void InitializeBattle()
     {
         battleContext.InitiateBattleEngine();
+        GetComponent<Collider2D>().enabled = false;
+        
     }
 }

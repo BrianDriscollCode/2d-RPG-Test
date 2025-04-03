@@ -109,14 +109,14 @@ public class BattleEngine : MonoBehaviour
         // Add players with a random initiative
         foreach (var player in players)
         {
-            int initiative = Random.Range(1, 100);
+            int initiative = Random.Range(99, 100);
             initiativeList.Add((initiative, player));
         }
 
         // Add enemies with a random initiative
         foreach (var enemy in enemies)
         {
-            int initiative = Random.Range(1, 100);
+            int initiative = Random.Range(1, 80);
             initiativeList.Add((initiative, enemy));
         }
 
@@ -147,6 +147,7 @@ public class BattleEngine : MonoBehaviour
 
     private void SetupBattleUI()
     {
+        Debug.Log("SETUPBATTLEUI");
         battleUI = Instantiate(battleUIRef).GetComponent<BattleUI>();
         battleButtonPanel = battleUI.GetBattleButtonsPanel;
         battleButtonPanel.SetupBattleButtons(this);
@@ -161,7 +162,10 @@ public class BattleEngine : MonoBehaviour
     // Move to the next turn
     public void NextTurn()
     {
-        changeState(BES_Next);
+        if (currentBattleState != BES_Next)
+        {
+            changeState(BES_Next);
+        }
         turnPointer = (turnPointer + 1) % participants.Count;
         changeState(BES_SelectMove);
     }
